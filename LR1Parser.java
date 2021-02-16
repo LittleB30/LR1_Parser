@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -15,11 +16,13 @@ public class LR1Parser {
      **************/
 
     /**
-     * 
-     * @param t
+     * Constructs an LR(1) parser with a given LR(1) parse table.
+     * @param tab a string array specifying an LR(1) parse table in the form "row column entry" where entry is either a row to shift to or a CFRule.
      */
-    public LR1Parser(String[] t) { //TODO implement and comment
-
+    public LR1Parser(String[] tab) {
+		parseTable = new Table(tab);
+		tokenQueue = new LinkedList<>(); //use anonomous class here if toString does not work
+		parseStack = new Stack<>();
     }
 
     /****************
@@ -44,11 +47,17 @@ public class LR1Parser {
          **************/
 
         /**
-         * 
-         * @param tok
+         * Constructs a queue node with a given token.
+         * @param tok a token from one of the columns of the LR(1) parse table
          */
-        public QueueNode(String tok) { //TODO implement and comment
-
+        public QueueNode(String tok) { 
+			token = tok;
+			try {
+				value = Integer.parseInt(tok);
+				isNum = true;
+			} catch (NumberFormatException e) {
+				isNum = false;
+			}
         }
 
         /****************
@@ -56,34 +65,52 @@ public class LR1Parser {
          ****************/
 
         /**
-         * 
-         * @return
+         * Gets the token variable. 
+         * @return this.token
          */
-        public String getToken() { //TODO implement and comment
-            
+        public String getToken() { 
+            return new String(token);
         }
 
         /**
-         * 
-         * @return
+         * Gets the isNum variable.
+         * @return this.isNum
          */
-        public boolean getIsNum() { //TODO implement and comment
-            
+        public boolean getIsNum() {
+            return isNum;
         }
 
         /**
-         * 
-         * @return
+         * Gets the value variable.
+         * @return this.value
          */
-        public int getValue() { //TODO implement and comment
-
+        public int getValue() {
+			return value;
         }
 
-        /**
-         * 
-         */
-        public String toString() { //TODO implement and comment
+		/**
+		 * Sets the token by a given string.
+		 * @param tok the string to set token to
+		 */
+		public void setToken(String tok) {
+			token = tok;
+		}
 
+		/**
+		 * Sets the value by a given integer.
+		 * @param val the integer to set value to
+		 */
+		public void setValue(int val) {
+			value = val;
+			isNum = true;
+		}
+
+        /**
+		 * Returns a string representation of the object.
+		 */
+		@Override
+        public String toString() { 
+			return getToken();
         }
     }
     
@@ -95,24 +122,44 @@ public class LR1Parser {
          **************/
 
         /**
-         * 
-         * @param tok
-         * @param state
+         * Constructs a stack node with a given token and current state.
+         * @param tok a token from one of the columns of the LR(1) parse table
+         * @param state the current state of the parser
          */
-        public StackNode(String tok, int state) { //TODO implement and comment
+        public StackNode(String tok, int state) {
             super(tok);
+			curState = state;
         }
 
         /****************
           Public Methods
          ****************/
 
-        public int getCurState() { //TODO implement and comment
-
+		/**
+		 * Gets the current state variable.
+		 * @return this.curState
+		 */
+        public int getCurState() {
+			return curState;
         }
 
-        public String toString() { //TODO implement and comment
+		/**
+		 * Sets the current state by a given integer.
+		 * @param state an integer to set the current state to
+		 */
+		public void setCurState(int state) {
+			curState = state;
+		}
 
+		/**
+		 * Returns a string representation of the object.
+		 */
+		@Override
+        public String toString() {
+			String temp = "(" + token;
+			if (isNum) temp += "=" + value;
+			temp += ":" + curState + ")";
+			return temp;
         }
     }
 
@@ -121,9 +168,9 @@ public class LR1Parser {
      *****************/
 
     /**
-     * 
+     * Prints the current state of the LR(1) parser.
      */
-    private void printIteration() { //TODO implement and comment
-
+    private void printIteration() { //TODO test, may not work fully
+		System.out.println("Stack:" + parseStack.toString() + "    Input Queue:" + tokenQueue.toString());
     }
 }
