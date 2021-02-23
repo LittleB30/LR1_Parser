@@ -11,10 +11,6 @@ public class LR1Parser {
     private Queue<QueueNode> tokenQueue;
     private Stack<StackNode> parseStack;
 
-    /**************
-      Constructors
-     **************/
-
     /**
      * Constructs an LR(1) parser with a given LR(1) parse table.
      * @param tab a string array specifying an LR(1) parse table in the form "row column entry" where entry is either a row to shift to or a CFRule.
@@ -25,10 +21,6 @@ public class LR1Parser {
 		parseStack = new Stack<>();
     }
 
-    /****************
-      Public Methods
-     ****************/
-
     /**
      * 
      * @param exp
@@ -37,14 +29,13 @@ public class LR1Parser {
 
     }
     
+	/**
+	 * An inner class defining a node used for the token queue of the LR1Parser class.
+	 */
     private class QueueNode {
-        String token;
-        boolean isNum;
-        int value;
-
-        /**************
-          Constructors
-         **************/
+        private String token;
+        private boolean isNum;
+        private int value;
 
         /**
          * Constructs a queue node with a given token.
@@ -59,10 +50,6 @@ public class LR1Parser {
 				isNum = false;
 			}
         }
-
-        /****************
-          Public Methods
-         ****************/
 
         /**
          * Gets the token variable. 
@@ -106,7 +93,7 @@ public class LR1Parser {
 		}
 
         /**
-		 * Returns a string representation of the object.
+		 * Returns a string representation of the QueueNode.
 		 */
 		@Override
         public String toString() { 
@@ -114,12 +101,11 @@ public class LR1Parser {
         }
     }
     
+	/**
+	 * An inner class defining a node used for the parsing stack of the LR1Parser class.
+	 */
     private class StackNode extends QueueNode {
         private int curState;
-
-        /**************
-          Constructors
-         **************/
 
         /**
          * Constructs a stack node with a given token and current state.
@@ -130,10 +116,6 @@ public class LR1Parser {
             super(tok);
 			curState = state;
         }
-
-        /****************
-          Public Methods
-         ****************/
 
 		/**
 		 * Gets the current state variable.
@@ -152,7 +134,7 @@ public class LR1Parser {
 		}
 
 		/**
-		 * Returns a string representation of the object.
+		 * Returns a string representation of the StackNode.
 		 */
 		@Override
         public String toString() {
@@ -162,10 +144,6 @@ public class LR1Parser {
 			return temp;
         }
     }
-
-    /*****************
-      Private Methods
-     *****************/
 
     /**
      * Prints the current state of the LR(1) parser.
