@@ -138,8 +138,8 @@ public class LR1Parser {
 		 */
 		@Override
         public String toString() {
-			String temp = "(" + token;
-			if (isNum) temp += "=" + value;
+			String temp = "(" + getToken();
+			if (getIsNum()) temp += "=" + getValue();
 			temp += ":" + curState + ")";
 			return temp;
         }
