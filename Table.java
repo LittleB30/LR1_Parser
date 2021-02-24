@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple table object with rows and columns implmented with a map.
  * @author Alex Smith (alsmi14)
  */
 public class Table {
-    private HashMap<String[],Entry> table;
+    private HashMap<List<String>,Entry> table;
 
     /**
      * Constructs an table of Entries with a given string array of entries.
@@ -23,8 +24,11 @@ public class Table {
      * @param col the desired column
      * @return the Entry object stored at the specified row and column
      */
-    public Entry getEntry(String row, String col) { //TODO test
-        return table.get(new String[]{row,col});
+    public Entry getEntry(String row, String col) {
+		List<String> temp = new ArrayList<>();
+		temp.add(row);
+		temp.add(col);
+        return table.get(temp);
     }
 
     /**
@@ -50,6 +54,14 @@ public class Table {
 		 */
         public boolean getIsShift() {
 			return isShift;
+        }
+
+		/**
+		 * Gets the is accepting boolean.
+		 * @return this.isAccepting
+		 */
+        public boolean getIsAccepting() {
+			return isAccepting;
         }
 
         /**
@@ -103,7 +115,7 @@ public class Table {
              * @return this.left
              */
             public String getLeft() { 
-				return new String(left);
+				return String.valueOf(left);
             }
 
             /**
@@ -195,6 +207,9 @@ public class Table {
      * @param rules the entry to be added
      */
     private void addEntry(String row, String col, String rules) {
-		table.put(new String[]{row, col}, new Entry(rules));
+		List<String> temp = new ArrayList<>();
+		temp.add(row);
+		temp.add(col);
+		table.put(temp, new Entry(rules));
     }
 }
