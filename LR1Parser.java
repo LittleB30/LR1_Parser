@@ -50,7 +50,7 @@ public class LR1Parser {
         System.out.println();
 
         if (tokenQueue.isEmpty()) {
-            System.out.printf("Valid Expression, value = %d", parseStack.peek().getValue());
+            System.out.printf("Valid Expression, value = %d\n", parseStack.peek().getValue());
         } else {
             System.out.println("Invalid Expression");
         }
@@ -268,7 +268,7 @@ public class LR1Parser {
                 reduced = true;
             }
         }
-        
+
         parseStack.add(new StackNode(rule.getLeft(), shiftState));
         parseStack.peek().setValue(result);
     }
