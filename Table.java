@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * A simple table object with rows and columns implmented with a map.
+ * A simple table object with rows and columns implemented with a map.
  * @author Alex Smith (alsmi14)
  */
 public class Table {
@@ -111,7 +111,7 @@ public class Table {
             }
 
             /**
-             * Gets a copy the left varible.
+             * Gets a copy the left variable.
              * @return this.left
              */
             public String getLeft() { 

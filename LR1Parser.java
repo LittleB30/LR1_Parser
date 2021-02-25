@@ -283,7 +283,7 @@ public class LR1Parser {
     }
 
     /**
-     * Gets the next entry from the parse table at (curState, curToken)
+     * Gets the next entry from the parse table at (curState, curToken).
      * @return the table entry, null if not found
      */
     private Table.Entry nextEntry() {
